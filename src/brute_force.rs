@@ -14,12 +14,12 @@ impl BruteForce {
 		println!("Password set to: {}", password);
 		println!("Starting local thread...");
 
-		let mut next = password.clone();
-		let mut before = Utc::now().timestamp();
+		let mut next = "aaaaaa".to_string();
 		let mut attempts = 0;
+		let before = Utc::now().timestamp();
 
 		let thread = std::thread::Builder::new().spawn(move || loop {
-			next = get_next(next);
+			get_next(&mut next);
 			attempts += 1;
 
 			if next == password {
@@ -39,18 +39,18 @@ impl BruteForce {
 	}
 }
 
-pub fn get_next(mut next: String) -> String {
+pub fn get_next(mut next: &mut String) {
 	let len = next.len();
 	let ch = next.pop().expect("Expected a character.");
 
 	if ch == 'z' {
 		if len > 1 {
-			get_next(next) + "a"
+			get_next(&mut next);
 		} else {
-			"aa".to_string()
+			next.push('a');
 		}
+		next.push('a');
 	} else {
 		next.push((ch as u8 + 1) as char);
-		next
 	}
 }
