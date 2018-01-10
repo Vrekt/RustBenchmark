@@ -1,0 +1,9 @@
+[package]
+name = "RustProject"
+version = "0.1.0"
+authors = ["Vrekt"]
+
+[dependencies]
+
+rand = "0.3.20"
+chrono = "0.4"
